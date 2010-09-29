@@ -9,7 +9,8 @@ map <F5> :NERDTreeToggle<cr>
 
 set number
 
-set guifont=Consolas:h12
+"set guifont=Consolas:h12
+set guifont=Mensch:h14
 
 set tabstop=2
 set smarttab
@@ -24,3 +25,27 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+set vb
+
+" Execute open rspec buffer
+" Thanks to Ian Smith-Heisters
+function! RunSpec(args)
+ if exists("b:rails_root") && filereadable(b:rails_root . "/script/spec")
+   let spec = b:rails_root . "/script/spec"
+ else
+   let spec = "spec"
+ end 
+ let cmd = ":! " . spec . " % -cfn " . a:args
+ execute cmd 
+endfunction
+
+
+" Mappings
+" run one rspec example or describe block based on cursor position
+map !s :call RunSpec("-l " . <C-r>=line('.')<CR>)
+" run full rspec file
+map !S :call RunSpec("")
+
+
+" set ctags
+let g:Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
