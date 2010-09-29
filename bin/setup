@@ -1,0 +1,4 @@
+#!/bin/sh
+
+ln -sf ~/.vim/vimrc ~/.vim
+ln -sf ~/.vim/gvimrc ~/.vim
